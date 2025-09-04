@@ -1,7 +1,8 @@
 PSPSDK=$(shell psp-config --pspsdk-path)
 REBOOTEXDIR ?= ../../BootLoadEx
+ARKSDK ?= ../external
 
-INCDIR = $(PSPSDK)/include ../external/include $(REBOOTEXDIR)
+INCDIR = $(PSPSDK)/include $(ARKSDK)/include $(REBOOTEXDIR)
 TARGET = reboot.bin.gz
 
 PYTHON=$(shell which python3)
@@ -32,7 +33,7 @@ LIBDIR =
 ifdef DEBUG
 CFLAGS += -DDEBUG=$(DEBUG)
 LIBS += -lcolordebugger
-LIBDIR += external/libs
+LIBDIR += $(ARKSDK)/libs
 endif
 
 crt0.o : $(REBOOTEXDIR)/crt0.S
