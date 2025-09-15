@@ -1,6 +1,6 @@
 PSPSDK=$(shell psp-config --pspsdk-path)
 REBOOTEXDIR ?= ../../BootLoadEx
-ARKSDK ?= ../external
+ARKSDK ?= ../../ark-dev-sdk
 
 INCDIR = $(PSPSDK)/include $(ARKSDK)/include $(REBOOTEXDIR)
 TARGET = reboot.bin.gz
