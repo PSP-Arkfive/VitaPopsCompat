@@ -7,7 +7,7 @@
 #include <systemctrl.h>
 
 #include "vitaflash.h"
-#include "kermit.h"
+#include "pspkermit.h"
 
 extern ARKConfig* ark_config;
 
