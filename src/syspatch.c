@@ -45,7 +45,7 @@ int sceDisplaySetFrameBufferInternalHook(int pri, void *topaddr, int width, int 
 }
 
 // patch pops display to set up our own screen handler
-void patchVitaPopsDisplay(SceModule2* mod){
+void patchVitaPopsDisplay(SceModule* mod){
     u32 display_func = sctrlHENFindFunction("sceDisplay_Service", "sceDisplay_driver", 0x3E17FE8D);
     if (display_func){
         // protect vita pops vram
@@ -189,7 +189,7 @@ int sctrlKernelLoadExecVSHWithApitypeFixed(int apitype, const char * file, struc
     return _sctrlKernelLoadExecVSHWithApitype(apitype, file, param);
 }
 
-int ARKVitaPopsOnModuleStart(SceModule2 * mod){
+int ARKVitaPopsOnModuleStart(SceModule * mod){
 
     static int booted = 0;
 
