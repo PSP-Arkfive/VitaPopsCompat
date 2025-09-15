@@ -7,7 +7,7 @@
 
 #include <ark.h>
 #include <cfwmacros.h>
-#include <module2.h>
+
 #include <rebootconfig.h>
 #include <systemctrl.h>
 #include <systemctrl_se.h>

@@ -5,7 +5,7 @@
 
 #include <ark.h>
 #include <cfwmacros.h>
-#include <module2.h>
+
 #include <systemctrl.h>
 #include <systemctrl_private.h>
 #include <pspiofilemgr.h>
