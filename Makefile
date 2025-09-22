@@ -27,7 +27,7 @@ USE_KERNEL_LIBS=1
 
 LIBDIR = $(ARKSDK)/libs
 LDFLAGS =  -nostartfiles
-LIBS = -lpspsystemctrl_kernel
+LIBS = -lpspsystemctrl_kernel -lpspkermit_driver -lpspkermitperipheral_driver
 
 ifdef DEBUG
 CFLAGS += -DDEBUG=$(DEBUG)

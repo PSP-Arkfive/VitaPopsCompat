@@ -1,17 +1,17 @@
 #include <string.h>
 #include <pspsdk.h>
 #include <pspiofilemgr.h>
+#include <pspkermit.h>
 
 #include <ark.h>
 #include <cfwmacros.h>
 #include <systemctrl.h>
 
 #include "vitaflash.h"
-#include "pspkermit.h"
 
 extern ARKConfig* ark_config;
 
-static int (* Kermit_driver_4F75AA05)(void* kermit_packet, u32 cmd_mode, u32 cmd, u32 argc, u32 allow_callback, u64 *resp) = NULL;
+extern int sceKermitPeripheral_driver_0648E1A3();
 
 static int installFlash0Archive(char* path)
 {
@@ -125,9 +125,9 @@ static u64 kermit_flash_load(int cmd)
     u64 resp;
     void *alignedBuf = (void*)ALIGN_64((int)buf + 63);
     sceKernelDcacheInvalidateRange(alignedBuf, 0x40);
-    KermitPacket *packet = (KermitPacket *)KERMIT_PACKET((int)alignedBuf);
+    SceKermitRequest *packet = (SceKermitRequest *)KERMIT_PACKET((int)alignedBuf);
     u32 argc = 0;
-    Kermit_driver_4F75AA05(packet, KERMIT_MODE_PERIPHERAL, cmd, argc, KERMIT_CALLBACK_DISABLE, &resp);
+    sceKermitSendRequest(packet, KERMIT_MODE_PERIPHERAL, cmd, argc, KERMIT_CALLBACK_DISABLE, &resp);
     return resp;
 }
 
@@ -149,27 +149,10 @@ static int flashLoadPatch(int cmd)
     return ret;
 }
 
-static u32 findKermitFlashDriver(){
-    u32 nids[] = {0x4F75AA05, 0x36666181};
-    for (int i=0; i<NELEMS(nids) && Kermit_driver_4F75AA05 == NULL; i++){
-        Kermit_driver_4F75AA05 = (void*)sctrlHENFindFunction("sceKermit_Driver", "sceKermit_driver", nids[i]);
-    }
-    return (u32)Kermit_driver_4F75AA05;
-}
-
 int patchKermitPeripheral()
 {
-    findKermitFlashDriver();
     // Redirect KERMIT_CMD_ERROR_EXIT loadFlash function
-    u32 knownnids[2] = { 0x3943440D, 0x0648E1A3 /* 3.3X */ };
-    u32 swaddress = 0;
-    u32 i;
-    for (i = 0; i < 2; i++)
-    {
-        swaddress = sctrlHENFindFirstJAL(sctrlHENFindFunction("sceKermitPeripheral_Driver", "sceKermitPeripheral_driver", knownnids[i]));
-        if (swaddress != 0)
-            break;
-    }
+    u32 swaddress = sctrlHENFindFirstJAL(K_EXTRACT_IMPORT(sceKermitPeripheral_driver_0648E1A3));
     _sw(JUMP(flashLoadPatch), swaddress);
     _sw(NOP, swaddress+4);
     
