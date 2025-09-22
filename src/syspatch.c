@@ -189,7 +189,7 @@ int sctrlKernelLoadExecVSHWithApitypeFixed(int apitype, const char * file, struc
     return _sctrlKernelLoadExecVSHWithApitype(apitype, file, param);
 }
 
-void ARKVitaPopsOnModuleStart(SceModule * mod){
+int ARKVitaPopsOnModuleStart(SceModule * mod){
 
     static int booted = 0;
 
@@ -296,7 +296,8 @@ flush:
     sctrlFlushCache();
 
     // Forward to previous Handler
-    if(previous) previous(mod);
+    if(previous) return previous(mod);
+    return 0;
 }
 
 void initVitaPopsSysPatch(){
