@@ -47,11 +47,11 @@ main.elf: crt0.o $(C_OBJS) $(REBOOT_OBJS)
 $(TARGET): main.elf
 	$(Q)$(STRIP) -s $<
 	$(Q)$(OBJCOPY) -O binary $< $(patsubst %.gz,%,$(TARGET))
-	$(Q)$(PYTHON) $(REBOOTEXDIR)/gz.py $(patsubst %.gz,%,$(TARGET)) $@
+	$(Q)$(PYTHON) $(ARKSDK)/build-tools/gz/gz.py $(patsubst %.gz,%,$(TARGET)) $@
 	$(Q)bin2c $@ payload.h rebootbuffer_vitapops
 	@echo GET $@
 
 clean:
 	$(Q)rm -rf *~ *.s *.o *.elf reboot.bin reboot.bin.gz payload.h $(EXTRA_CLEAN)
 
-include $(REBOOTEXDIR)/beauty_bin.mak
+include $(ARKSDK)/build-tools/beauty_bin.mak
