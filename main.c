@@ -15,7 +15,7 @@
 
 #include "popsdisplay.h"
 
-#include "rebootex/payload.h"
+#include <payload.h>
 
 PSP_MODULE_INFO("ARKCompatLayer", 0x3007, 1, 0);
 

@@ -13,7 +13,7 @@ OBJS = \
 	$(C_OBJS) imports.o
 
 all: $(TARGET).prx
-INCDIR = include $(ARKSDK)/include
+INCDIR = include $(ARKSDK)/include rebootex
 CFLAGS = -std=c99 -Os -G0 -Wall -fno-pic
 
 CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
