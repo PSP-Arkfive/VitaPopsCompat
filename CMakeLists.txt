@@ -13,12 +13,12 @@ FetchContent_Declare(
     EXCLUDE_FROM_ALL
 )
 FetchContent_Declare(
-    bootloadex
+    BootLoadEx
     GIT_REPOSITORY https://github.com/PSP-Arkfive/BootLoadEx.git
     GIT_TAG main
     EXCLUDE_FROM_ALL
 )
-FetchContent_MakeAvailable(ark-dev-sdk bootloadex)
+FetchContent_MakeAvailable(ark-dev-sdk BootLoadEx)
 
 set(ARKSDK ${ark-dev-sdk_SOURCE_DIR})
 
