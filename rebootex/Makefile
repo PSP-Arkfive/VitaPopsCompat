@@ -1,11 +1,11 @@
-PSPSDK=$(shell psp-config --pspsdk-path)
+PSPSDK = $(shell psp-config --pspsdk-path)
+PSPDEV = $(shell psp-config --pspdev-path)
+PYTHON = $(shell which python3)
+ARKSDK = $(PSPDEV)/share/ark-dev-sdk
 BOOTLOADEX ?= ../../BootLoadEx
-ARKSDK ?= ../../ark-dev-sdk
 
-INCDIR = $(PSPSDK)/include $(ARKSDK)/include $(BOOTLOADEX)
+INCDIR = $(PSPSDK)/include $(BOOTLOADEX)
 TARGET = reboot.bin.gz
-
-PYTHON=$(shell which python3)
 
 all: $(TARGET)
 
@@ -33,7 +33,6 @@ LIBDIR =
 ifdef DEBUG
 CFLAGS += -DDEBUG=$(DEBUG)
 LIBS += -lcolordebugger
-LIBDIR += $(ARKSDK)/libs
 endif
 
 crt0.o : $(BOOTLOADEX)/crt0.S
