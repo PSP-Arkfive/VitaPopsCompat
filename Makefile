@@ -1,7 +1,6 @@
-TARGET = vitapops
-
 PSPSDK = $(shell psp-config --pspsdk-path)
-ARKSDK ?= ../ark-dev-sdk
+
+TARGET = vitapops
 
 C_OBJS = \
 	main.o \
@@ -13,7 +12,7 @@ OBJS = \
 	$(C_OBJS) imports.o
 
 all: $(TARGET).prx
-INCDIR = include $(ARKSDK)/include rebootex
+INCDIR = include rebootex
 CFLAGS = -std=c99 -Os -G0 -Wall -fno-pic
 
 CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
@@ -25,7 +24,7 @@ PRX_EXPORTS = exports.exp
 USE_KERNEL_LIBC=1
 USE_KERNEL_LIBS=1
 
-LIBDIR = $(ARKSDK)/libs
+LIBDIR =
 LDFLAGS =  -nostartfiles
 LIBS = -lpspsystemctrl_kernel -lpspkermit_driver -lpspkermitperipheral_driver
 
