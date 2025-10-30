@@ -31,7 +31,7 @@ int (* DisplaySetFrameBuf)(void*, int, int, int) = NULL;
 int (* DisplayGetFrameBuf)(void**, int*, int*, int) = NULL;
 int (* DisplayWaitVblankStart)() = NULL;
 
-extern SEConfig* se_config;
+extern SEConfigARK* se_config;
 
 
 // hooked function to copy framebuffer
