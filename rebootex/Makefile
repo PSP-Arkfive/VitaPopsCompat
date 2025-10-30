@@ -22,10 +22,8 @@ REBOOT_OBJS = \
 	lib.o \
 	pspbtcnf.o \
 	scanner.o \
-
-C_OBJS = \
-	patches.o \
-	$(BOOTLOADEX)/vita_rebootex/patches.o
+	patches_vita.o \
+	patches_vita_epsx.o
 
 LIBS =
 LIBDIR = 
