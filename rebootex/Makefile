@@ -19,13 +19,12 @@ LINKFILE = $(BOOTLOADEX)/linkfile.l
 
 REBOOT_OBJS = \
 	main.o \
-	lib.o \
 	pspbtcnf.o \
 	scanner.o \
 	patches_vita.o \
-	patches_vita_epsx.o
+	patches_vita_epsx.o \
 
-LIBS =
+LIBS = -L $(PSPSDK)/lib -lansic
 LIBDIR = 
 
 ifdef DEBUG
